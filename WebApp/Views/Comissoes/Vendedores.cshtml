@@ -1,0 +1,55 @@
+﻿@model IEnumerable<WebApp.Models.ComissoesVendedores>
+
+@{
+    ViewBag.Title = "Comissões por Vendedores";
+}
+
+<h2>Comissoes por Vendedores</h2>
+
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>*@
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NmeVendedor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QtdVendas)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QtdVales)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VlrTotalVendas)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VlrTotalComissao)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NmeVendedor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.QtdVendas)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.QtdVales)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VlrTotalVendas)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VlrTotalComissao)
+        </td>
+        <td>
+            @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
+        </td>
+    </tr>
+}
+
+</table>

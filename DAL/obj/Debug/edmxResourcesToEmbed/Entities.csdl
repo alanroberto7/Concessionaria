@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DBCONCESSIONARIAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="VEI001_MARCA">
+    <Key>
+      <PropertyRef Name="IdeMarca" />
+    </Key>
+    <Property Name="IdeMarca" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NmeMarca" Type="String" MaxLength="35" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="VEI002_MODELO" Relationship="Self.FK_VEI002_IdeMarca" FromRole="VEI001_MARCA" ToRole="VEI002_MODELO" />
+  </EntityType>
+  <EntityType Name="VEI002_MODELO">
+    <Key>
+      <PropertyRef Name="IdeModelo" />
+    </Key>
+    <Property Name="IdeModelo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdeMarca" Type="Int32" Nullable="false" />
+    <Property Name="CodModelo" Type="String" MaxLength="8" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="NmeModelo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="VEI001_MARCA" Relationship="Self.FK_VEI002_IdeMarca" FromRole="VEI002_MODELO" ToRole="VEI001_MARCA" />
+    <NavigationProperty Name="VEI004_MODELO_VERSAO" Relationship="Self.FK_VEI004_IdeModelo" FromRole="VEI002_MODELO" ToRole="VEI004_MODELO_VERSAO" />
+  </EntityType>
+  <EntityType Name="VEI003_COMBUSTIVEL">
+    <Key>
+      <PropertyRef Name="IdeCombustivel" />
+    </Key>
+    <Property Name="IdeCombustivel" Type="Byte" Nullable="false" />
+    <Property Name="NmeCombustivel" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="VEI004_MODELO_VERSAO" Relationship="Self.FK_VEI004_IdeCombustivel" FromRole="VEI003_COMBUSTIVEL" ToRole="VEI004_MODELO_VERSAO" />
+  </EntityType>
+  <EntityType Name="VEI004_MODELO_VERSAO">
+    <Key>
+      <PropertyRef Name="IdeModeloVersao" />
+    </Key>
+    <Property Name="IdeModeloVersao" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdeModelo" Type="Int32" Nullable="false" />
+    <Property Name="IdeCombustivel" Type="Byte" Nullable="false" />
+    <Property Name="NroAno" Type="Int16" />
+    <Property Name="VlrPrecoTabelado" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+    <NavigationProperty Name="VEI002_MODELO" Relationship="Self.FK_VEI004_IdeModelo" FromRole="VEI004_MODELO_VERSAO" ToRole="VEI002_MODELO" />
+    <NavigationProperty Name="VEI003_COMBUSTIVEL" Relationship="Self.FK_VEI004_IdeCombustivel" FromRole="VEI004_MODELO_VERSAO" ToRole="VEI003_COMBUSTIVEL" />
+    <NavigationProperty Name="VND002_VENDA" Relationship="Self.FK_VND002_IdeModeloVersao" FromRole="VEI004_MODELO_VERSAO" ToRole="VND002_VENDA" />
+  </EntityType>
+  <EntityType Name="VND001_VENDEDOR">
+    <Key>
+      <PropertyRef Name="IdeVendedor" />
+    </Key>
+    <Property Name="IdeVendedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NmeVendedor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="VND002_VENDA" Relationship="Self.FK_VND002_IdeVendedor" FromRole="VND001_VENDEDOR" ToRole="VND002_VENDA" />
+  </EntityType>
+  <EntityType Name="VND002_VENDA">
+    <Key>
+      <PropertyRef Name="IdeVenda" />
+    </Key>
+    <Property Name="IdeVenda" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdeVendedor" Type="Int32" Nullable="false" />
+    <Property Name="IdeModeloVersao" Type="Int32" Nullable="false" />
+    <Property Name="VlrPrecoVenda" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="StaValeCombustivel" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="VEI004_MODELO_VERSAO" Relationship="Self.FK_VND002_IdeModeloVersao" FromRole="VND002_VENDA" ToRole="VEI004_MODELO_VERSAO" />
+    <NavigationProperty Name="VND001_VENDEDOR" Relationship="Self.FK_VND002_IdeVendedor" FromRole="VND002_VENDA" ToRole="VND001_VENDEDOR" />
+  </EntityType>
+  <Association Name="FK_VEI002_IdeMarca">
+    <End Role="VEI001_MARCA" Type="Self.VEI001_MARCA" Multiplicity="1" />
+    <End Role="VEI002_MODELO" Type="Self.VEI002_MODELO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VEI001_MARCA">
+        <PropertyRef Name="IdeMarca" />
+      </Principal>
+      <Dependent Role="VEI002_MODELO">
+        <PropertyRef Name="IdeMarca" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VEI004_IdeModelo">
+    <End Role="VEI002_MODELO" Type="Self.VEI002_MODELO" Multiplicity="1" />
+    <End Role="VEI004_MODELO_VERSAO" Type="Self.VEI004_MODELO_VERSAO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VEI002_MODELO">
+        <PropertyRef Name="IdeModelo" />
+      </Principal>
+      <Dependent Role="VEI004_MODELO_VERSAO">
+        <PropertyRef Name="IdeModelo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VEI004_IdeCombustivel">
+    <End Role="VEI003_COMBUSTIVEL" Type="Self.VEI003_COMBUSTIVEL" Multiplicity="1" />
+    <End Role="VEI004_MODELO_VERSAO" Type="Self.VEI004_MODELO_VERSAO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VEI003_COMBUSTIVEL">
+        <PropertyRef Name="IdeCombustivel" />
+      </Principal>
+      <Dependent Role="VEI004_MODELO_VERSAO">
+        <PropertyRef Name="IdeCombustivel" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VND002_IdeModeloVersao">
+    <End Role="VEI004_MODELO_VERSAO" Type="Self.VEI004_MODELO_VERSAO" Multiplicity="1" />
+    <End Role="VND002_VENDA" Type="Self.VND002_VENDA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VEI004_MODELO_VERSAO">
+        <PropertyRef Name="IdeModeloVersao" />
+      </Principal>
+      <Dependent Role="VND002_VENDA">
+        <PropertyRef Name="IdeModeloVersao" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VND002_IdeVendedor">
+    <End Role="VND001_VENDEDOR" Type="Self.VND001_VENDEDOR" Multiplicity="1" />
+    <End Role="VND002_VENDA" Type="Self.VND002_VENDA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VND001_VENDEDOR">
+        <PropertyRef Name="IdeVendedor" />
+      </Principal>
+      <Dependent Role="VND002_VENDA">
+        <PropertyRef Name="IdeVendedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DBCONCESSIONARIAEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="VEI001_MARCA" EntityType="Self.VEI001_MARCA" />
+    <EntitySet Name="VEI002_MODELO" EntityType="Self.VEI002_MODELO" />
+    <EntitySet Name="VEI003_COMBUSTIVEL" EntityType="Self.VEI003_COMBUSTIVEL" />
+    <EntitySet Name="VEI004_MODELO_VERSAO" EntityType="Self.VEI004_MODELO_VERSAO" />
+    <EntitySet Name="VND001_VENDEDOR" EntityType="Self.VND001_VENDEDOR" />
+    <EntitySet Name="VND002_VENDA" EntityType="Self.VND002_VENDA" />
+    <AssociationSet Name="FK_VEI002_IdeMarca" Association="Self.FK_VEI002_IdeMarca">
+      <End Role="VEI001_MARCA" EntitySet="VEI001_MARCA" />
+      <End Role="VEI002_MODELO" EntitySet="VEI002_MODELO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VEI004_IdeModelo" Association="Self.FK_VEI004_IdeModelo">
+      <End Role="VEI002_MODELO" EntitySet="VEI002_MODELO" />
+      <End Role="VEI004_MODELO_VERSAO" EntitySet="VEI004_MODELO_VERSAO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VEI004_IdeCombustivel" Association="Self.FK_VEI004_IdeCombustivel">
+      <End Role="VEI003_COMBUSTIVEL" EntitySet="VEI003_COMBUSTIVEL" />
+      <End Role="VEI004_MODELO_VERSAO" EntitySet="VEI004_MODELO_VERSAO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VND002_IdeModeloVersao" Association="Self.FK_VND002_IdeModeloVersao">
+      <End Role="VEI004_MODELO_VERSAO" EntitySet="VEI004_MODELO_VERSAO" />
+      <End Role="VND002_VENDA" EntitySet="VND002_VENDA" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VND002_IdeVendedor" Association="Self.FK_VND002_IdeVendedor">
+      <End Role="VND001_VENDEDOR" EntitySet="VND001_VENDEDOR" />
+      <End Role="VND002_VENDA" EntitySet="VND002_VENDA" />
+    </AssociationSet>
+    <FunctionImport Name="ListarComissoesVendedores" ReturnType="Collection(DBCONCESSIONARIAModel.ListarComissoesVendedores_Result)" />
+  </EntityContainer>
+  <ComplexType Name="ListarComissoesVendedores_Result">
+    <Property Type="String" Name="NmeVendedor" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="QtdVendas" Nullable="true" />
+    <Property Type="Int32" Name="QtdVales" Nullable="true" />
+    <Property Type="Decimal" Name="VlrTotalVendas" Nullable="true" Precision="38" Scale="2" />
+    <Property Type="Decimal" Name="VlrTotalComissao" Nullable="true" Precision="38" Scale="6" />
+  </ComplexType>
+</Schema>

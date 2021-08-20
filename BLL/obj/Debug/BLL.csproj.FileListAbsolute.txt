@@ -1,0 +1,8 @@
+C:\Users\alanr\source\repos\Concessionaria\Repositories\BLL.dll.config
+C:\Users\alanr\source\repos\Concessionaria\Repositories\BLL.dll
+C:\Users\alanr\source\repos\Concessionaria\Repositories\BLL.pdb
+C:\Users\alanr\source\repos\Concessionaria\BLL\obj\Debug\BLL.csproj.AssemblyReference.cache
+C:\Users\alanr\source\repos\Concessionaria\BLL\obj\Debug\BLL.csproj.CoreCompileInputs.cache
+C:\Users\alanr\source\repos\Concessionaria\BLL\obj\Debug\BLL.csproj.CopyComplete
+C:\Users\alanr\source\repos\Concessionaria\BLL\obj\Debug\BLL.dll
+C:\Users\alanr\source\repos\Concessionaria\BLL\obj\Debug\BLL.pdb

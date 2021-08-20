@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "Home";
+}
+
+<div class="jumbotron">
+    <h1>Concessionária XXX</h1>
+    <p class="lead">Este site é um protótipo utilizado na Avaliação prática para Analista de Tecnologia.</p>
+    <p class="lead">No link abaixo será possível visualizar o desenvolvimento solicitado.</p>
+    <p>
+        @Html.ActionLink("Comissões por Vendedores", "Vendedores", "Comissoes", null, new { htmlAttributes = new { @class = "btn btn-primary btn-lg"} })
+    </p>
+</div>
+

@@ -1,0 +1,8 @@
+C:\Users\alanr\source\repos\Concessionaria\Repositories\DAL.dll.config
+C:\Users\alanr\source\repos\Concessionaria\Repositories\DAL.dll
+C:\Users\alanr\source\repos\Concessionaria\Repositories\DAL.pdb
+C:\Users\alanr\source\repos\Concessionaria\DAL\obj\Debug\DAL.csproj.AssemblyReference.cache
+C:\Users\alanr\source\repos\Concessionaria\DAL\obj\Debug\DAL.csproj.CoreCompileInputs.cache
+C:\Users\alanr\source\repos\Concessionaria\DAL\obj\Debug\DAL.csproj.CopyComplete
+C:\Users\alanr\source\repos\Concessionaria\DAL\obj\Debug\DAL.dll
+C:\Users\alanr\source\repos\Concessionaria\DAL\obj\Debug\DAL.pdb

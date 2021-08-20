@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DBCONCESSIONARIAModelStoreContainer" CdmEntityContainer="DBCONCESSIONARIAEntities">
+    <EntitySetMapping Name="VEI001_MARCA">
+      <EntityTypeMapping TypeName="DBCONCESSIONARIAModel.VEI001_MARCA">
+        <MappingFragment StoreEntitySet="VEI001_MARCA">
+          <ScalarProperty Name="IdeMarca" ColumnName="IdeMarca" />
+          <ScalarProperty Name="NmeMarca" ColumnName="NmeMarca" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VEI002_MODELO">
+      <EntityTypeMapping TypeName="DBCONCESSIONARIAModel.VEI002_MODELO">
+        <MappingFragment StoreEntitySet="VEI002_MODELO">
+          <ScalarProperty Name="IdeModelo" ColumnName="IdeModelo" />
+          <ScalarProperty Name="IdeMarca" ColumnName="IdeMarca" />
+          <ScalarProperty Name="CodModelo" ColumnName="CodModelo" />
+          <ScalarProperty Name="NmeModelo" ColumnName="NmeModelo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VEI003_COMBUSTIVEL">
+      <EntityTypeMapping TypeName="DBCONCESSIONARIAModel.VEI003_COMBUSTIVEL">
+        <MappingFragment StoreEntitySet="VEI003_COMBUSTIVEL">
+          <ScalarProperty Name="IdeCombustivel" ColumnName="IdeCombustivel" />
+          <ScalarProperty Name="NmeCombustivel" ColumnName="NmeCombustivel" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VEI004_MODELO_VERSAO">
+      <EntityTypeMapping TypeName="DBCONCESSIONARIAModel.VEI004_MODELO_VERSAO">
+        <MappingFragment StoreEntitySet="VEI004_MODELO_VERSAO">
+          <ScalarProperty Name="IdeModeloVersao" ColumnName="IdeModeloVersao" />
+          <ScalarProperty Name="IdeModelo" ColumnName="IdeModelo" />
+          <ScalarProperty Name="IdeCombustivel" ColumnName="IdeCombustivel" />
+          <ScalarProperty Name="NroAno" ColumnName="NroAno" />
+          <ScalarProperty Name="VlrPrecoTabelado" ColumnName="VlrPrecoTabelado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VND001_VENDEDOR">
+      <EntityTypeMapping TypeName="DBCONCESSIONARIAModel.VND001_VENDEDOR">
+        <MappingFragment StoreEntitySet="VND001_VENDEDOR">
+          <ScalarProperty Name="IdeVendedor" ColumnName="IdeVendedor" />
+          <ScalarProperty Name="NmeVendedor" ColumnName="NmeVendedor" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VND002_VENDA">
+      <EntityTypeMapping TypeName="DBCONCESSIONARIAModel.VND002_VENDA">
+        <MappingFragment StoreEntitySet="VND002_VENDA">
+          <ScalarProperty Name="IdeVenda" ColumnName="IdeVenda" />
+          <ScalarProperty Name="IdeVendedor" ColumnName="IdeVendedor" />
+          <ScalarProperty Name="IdeModeloVersao" ColumnName="IdeModeloVersao" />
+          <ScalarProperty Name="VlrPrecoVenda" ColumnName="VlrPrecoVenda" />
+          <ScalarProperty Name="StaValeCombustivel" ColumnName="StaValeCombustivel" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="ListarComissoesVendedores" FunctionName="DBCONCESSIONARIAModel.Store.ListarComissoesVendedores">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DBCONCESSIONARIAModel.ListarComissoesVendedores_Result">
+          <ScalarProperty Name="NmeVendedor" ColumnName="NmeVendedor" />
+          <ScalarProperty Name="QtdVendas" ColumnName="QtdVendas" />
+          <ScalarProperty Name="QtdVales" ColumnName="QtdVales" />
+          <ScalarProperty Name="VlrTotalVendas" ColumnName="VlrTotalVendas" />
+          <ScalarProperty Name="VlrTotalComissao" ColumnName="VlrTotalComissao" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

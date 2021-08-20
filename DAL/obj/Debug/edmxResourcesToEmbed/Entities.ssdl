@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DBCONCESSIONARIAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="VEI001_MARCA">
+    <Key>
+      <PropertyRef Name="IdeMarca" />
+    </Key>
+    <Property Name="IdeMarca" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NmeMarca" Type="varchar" MaxLength="35" Nullable="false" />
+  </EntityType>
+  <EntityType Name="VEI002_MODELO">
+    <Key>
+      <PropertyRef Name="IdeModelo" />
+    </Key>
+    <Property Name="IdeModelo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdeMarca" Type="int" Nullable="false" />
+    <Property Name="CodModelo" Type="char" MaxLength="8" Nullable="false" />
+    <Property Name="NmeModelo" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="VEI003_COMBUSTIVEL">
+    <Key>
+      <PropertyRef Name="IdeCombustivel" />
+    </Key>
+    <Property Name="IdeCombustivel" Type="tinyint" Nullable="false" />
+    <Property Name="NmeCombustivel" Type="varchar" MaxLength="15" Nullable="false" />
+  </EntityType>
+  <EntityType Name="VEI004_MODELO_VERSAO">
+    <Key>
+      <PropertyRef Name="IdeModeloVersao" />
+    </Key>
+    <Property Name="IdeModeloVersao" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdeModelo" Type="int" Nullable="false" />
+    <Property Name="IdeCombustivel" Type="tinyint" Nullable="false" />
+    <Property Name="NroAno" Type="smallint" />
+    <Property Name="VlrPrecoTabelado" Type="numeric" Precision="10" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="VND001_VENDEDOR">
+    <Key>
+      <PropertyRef Name="IdeVendedor" />
+    </Key>
+    <Property Name="IdeVendedor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NmeVendedor" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="VND002_VENDA">
+    <Key>
+      <PropertyRef Name="IdeVenda" />
+    </Key>
+    <Property Name="IdeVenda" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdeVendedor" Type="int" Nullable="false" />
+    <Property Name="IdeModeloVersao" Type="int" Nullable="false" />
+    <Property Name="VlrPrecoVenda" Type="numeric" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="StaValeCombustivel" Type="bit" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_VEI002_IdeMarca">
+    <End Role="VEI001_MARCA" Type="Self.VEI001_MARCA" Multiplicity="1" />
+    <End Role="VEI002_MODELO" Type="Self.VEI002_MODELO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VEI001_MARCA">
+        <PropertyRef Name="IdeMarca" />
+      </Principal>
+      <Dependent Role="VEI002_MODELO">
+        <PropertyRef Name="IdeMarca" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VEI004_IdeCombustivel">
+    <End Role="VEI003_COMBUSTIVEL" Type="Self.VEI003_COMBUSTIVEL" Multiplicity="1" />
+    <End Role="VEI004_MODELO_VERSAO" Type="Self.VEI004_MODELO_VERSAO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VEI003_COMBUSTIVEL">
+        <PropertyRef Name="IdeCombustivel" />
+      </Principal>
+      <Dependent Role="VEI004_MODELO_VERSAO">
+        <PropertyRef Name="IdeCombustivel" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VEI004_IdeModelo">
+    <End Role="VEI002_MODELO" Type="Self.VEI002_MODELO" Multiplicity="1" />
+    <End Role="VEI004_MODELO_VERSAO" Type="Self.VEI004_MODELO_VERSAO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VEI002_MODELO">
+        <PropertyRef Name="IdeModelo" />
+      </Principal>
+      <Dependent Role="VEI004_MODELO_VERSAO">
+        <PropertyRef Name="IdeModelo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VND002_IdeModeloVersao">
+    <End Role="VEI004_MODELO_VERSAO" Type="Self.VEI004_MODELO_VERSAO" Multiplicity="1" />
+    <End Role="VND002_VENDA" Type="Self.VND002_VENDA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VEI004_MODELO_VERSAO">
+        <PropertyRef Name="IdeModeloVersao" />
+      </Principal>
+      <Dependent Role="VND002_VENDA">
+        <PropertyRef Name="IdeModeloVersao" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VND002_IdeVendedor">
+    <End Role="VND001_VENDEDOR" Type="Self.VND001_VENDEDOR" Multiplicity="1" />
+    <End Role="VND002_VENDA" Type="Self.VND002_VENDA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VND001_VENDEDOR">
+        <PropertyRef Name="IdeVendedor" />
+      </Principal>
+      <Dependent Role="VND002_VENDA">
+        <PropertyRef Name="IdeVendedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="ListarComissoesVendedores" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="DBCONCESSIONARIAModelStoreContainer">
+    <EntitySet Name="VEI001_MARCA" EntityType="Self.VEI001_MARCA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VEI002_MODELO" EntityType="Self.VEI002_MODELO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VEI003_COMBUSTIVEL" EntityType="Self.VEI003_COMBUSTIVEL" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VEI004_MODELO_VERSAO" EntityType="Self.VEI004_MODELO_VERSAO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VND001_VENDEDOR" EntityType="Self.VND001_VENDEDOR" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VND002_VENDA" EntityType="Self.VND002_VENDA" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_VEI002_IdeMarca" Association="Self.FK_VEI002_IdeMarca">
+      <End Role="VEI001_MARCA" EntitySet="VEI001_MARCA" />
+      <End Role="VEI002_MODELO" EntitySet="VEI002_MODELO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VEI004_IdeCombustivel" Association="Self.FK_VEI004_IdeCombustivel">
+      <End Role="VEI003_COMBUSTIVEL" EntitySet="VEI003_COMBUSTIVEL" />
+      <End Role="VEI004_MODELO_VERSAO" EntitySet="VEI004_MODELO_VERSAO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VEI004_IdeModelo" Association="Self.FK_VEI004_IdeModelo">
+      <End Role="VEI002_MODELO" EntitySet="VEI002_MODELO" />
+      <End Role="VEI004_MODELO_VERSAO" EntitySet="VEI004_MODELO_VERSAO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VND002_IdeModeloVersao" Association="Self.FK_VND002_IdeModeloVersao">
+      <End Role="VEI004_MODELO_VERSAO" EntitySet="VEI004_MODELO_VERSAO" />
+      <End Role="VND002_VENDA" EntitySet="VND002_VENDA" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VND002_IdeVendedor" Association="Self.FK_VND002_IdeVendedor">
+      <End Role="VND001_VENDEDOR" EntitySet="VND001_VENDEDOR" />
+      <End Role="VND002_VENDA" EntitySet="VND002_VENDA" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
